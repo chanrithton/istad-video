@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'co.nea'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+ext {
+    mapstructVersion = "1.5.3.Final"
+    lombokVersion = "1.18.20"
+    lombokMapstructBindingVersion = "0.2.0"
+    mybatisVersion = "3.2.2"
+    mybatisPageHelperVersion = "2.1.0"
+}
+
+
+dependencies {
+    implementation "com.github.pagehelper:pagehelper-spring-boot-starter:${mybatisPageHelperVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    implementation "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
